@@ -12,7 +12,6 @@ connectDB();
 
 
 // routes import
-
 import userRoute from './routes/userRoute.js';
 
 
@@ -48,7 +47,7 @@ cloudinary.config({
 
 
 
-// APIs
+// APIs for auth
 server.use("/api/user", userRoute);
 
 
