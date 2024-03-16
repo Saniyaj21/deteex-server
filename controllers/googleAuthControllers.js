@@ -26,7 +26,6 @@ export const googleSignup = async (req, res) => {
                 email,
                 avatar
             });
-            // console.log("userCreated", user);
 
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,);
 

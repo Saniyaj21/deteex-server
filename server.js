@@ -53,7 +53,7 @@ server.use("/api/user", userRoute);
 
 
 server.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello World from Backend!');
 });
 
 
