@@ -4,15 +4,14 @@ export const isAuthenticate = async (req, res, next) => {
 
     try {
 
-        const { token } = req.cookies;
+        const token = req.headers.token;
+       
         if (!token) {
-            // checking success to the frontend so that we dont have to see 400 error i console
             return res.status(200).json({
                 success: false,
                 message: "You are not authenticated"
             })
         }
-        // decodedData is _id of the user that is stored in token
         const decodedData = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await User.findById(decodedData._id);
 
@@ -24,3 +23,18 @@ export const isAuthenticate = async (req, res, next) => {
         })
     }
 }
+
+export const authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+
+        if (!roles.includes(req.user.role)) {
+            return res.status(403).json({
+                success: false,
+                message: `Only Admin can access this resouce `
+                // message: `Role: ${req.user.role} is not allowed to access this resouce `
+            });
+        }
+
+        next();
+    };
+};
