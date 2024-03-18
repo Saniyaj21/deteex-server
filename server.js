@@ -13,6 +13,7 @@ connectDB();
 
 // routes import
 import userRoute from './routes/userRoute.js';
+import companyRoute from './routes/companyRoute.js';
 
 
 // Middlewares
@@ -49,6 +50,7 @@ cloudinary.config({
 
 // APIs for auth
 server.use("/api/user", userRoute);
+server.use("/api/company", companyRoute);
 
 
 
