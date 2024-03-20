@@ -12,7 +12,6 @@ export const addCompany = async (req, res) => {
       crop: "scale",
     });
 
-
     const company = await Company.create({
       cmpName,
       cmpEmail,
@@ -30,12 +29,30 @@ export const addCompany = async (req, res) => {
 
     res.status(200).json({ success: true, company });
   } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, message: 'User not available' });
+  }
+}
+
+export const deleteCompany = async (req, res) => {
+  try {
+    const { id } = req.params
+    const company = await Company.findOneAndDelete({ _id: id })
+
+    // Deleting Images From Cloudinary
+    await cloudinary.uploader.destroy(company.cmpLogo.public_id);
+
+    const allCompany = await Company.find()
+    res.status(200).json({ success: true, allCompany });
+
+  } catch (error) {
+    console.log(error);
     res.status(400).json({ success: false, message: 'User not available' });
   }
 }
 export const getAllCompany = async (req, res) => {
   try {
- 
+
     const allCompany = await Company.find()
     res.status(200).json({ success: true, allCompany });
   } catch (error) {
