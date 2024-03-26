@@ -3,6 +3,17 @@ import { v2 as cloudinary } from 'cloudinary';
 import { Employee } from '../models/employeeModel.js';
 
 
+export const getAllEmp = async (req, res) => {
+  try {
+    console.log(req.boy);
+    const allEmployee = await Employee.find();
+    res.status(200).json({ success: true, allEmployee });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, message: 'User not available' });
+  }
+}
+
 export const addEmployee = async (req, res) => {
   try {
     console.log(req.boy);

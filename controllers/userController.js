@@ -3,7 +3,9 @@ import { User } from '../models/userModel.js';
 export const userInfo = async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
-    res.status(200).json({ success: true, user });
+    const allUsers = await User.find()
+
+    res.status(200).json({ success: true, user, allUsers });
   } catch (error) {
     res.status(400).json({ success: false, message: 'User not available' });
   }
